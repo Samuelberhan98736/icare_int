@@ -1,0 +1,64 @@
+---
+// One button family for the whole site. Renders <a> when `href` is set, otherwise <button>.
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'primary' | 'secondary' | 'light' | 'ghost';
+
+interface Props {
+  variant?: Variant;
+  href?: string;
+  /** Use on dark backgrounds: secondary becomes a white outline, ghost becomes white text. */
+  inverse?: boolean;
+  /** Opens in a new tab with rel="noopener" (for external platforms like giving or YouTube). */
+  external?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  ariaLabel?: string;
+  ariaCurrent?: HTMLAttributes<'a'>['aria-current'];
+}
+
+const {
+  variant = 'primary',
+  href,
+  inverse = false,
+  external = false,
+  type = 'button',
+  class: className,
+  ariaLabel,
+  ariaCurrent,
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 font-medium tracking-wide transition-colors duration-200 cursor-pointer';
+const pill = 'rounded-full px-7 py-3 text-sm';
+
+const variants: Record<Variant, string> = {
+  primary: `${pill} bg-forest text-white hover:bg-forest-dark`,
+  secondary: inverse
+    ? `${pill} border border-white text-white hover:bg-white hover:text-ink`
+    : `${pill} border border-ink text-ink hover:bg-ink hover:text-white`,
+  light: `${pill} bg-white text-ink hover:bg-sand`,
+  ghost: `group rounded-sm text-sm ${inverse ? 'text-white' : 'text-forest hover:text-forest-dark'}`,
+};
+
+const classes = [base, variants[variant], className];
+const externalAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+
+{
+  href ? (
+    <a href={href} class:list={classes} aria-label={ariaLabel} aria-current={ariaCurrent} {...externalAttrs}>
+      <slot />
+      {variant === 'ghost' && (
+        <span aria-hidden="true" class="inline-block transition-transform duration-200 group-hover:translate-x-1">
+          →
+        </span>
+      )}
+      {external && <span class="sr-only">(opens in a new tab)</span>}
+    </a>
+  ) : (
+    <button type={type} class:list={classes} aria-label={ariaLabel}>
+      <slot />
+    </button>
+  )
+}

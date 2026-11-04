@@ -1,0 +1,138 @@
+---
+import Button from '@/components/Button.astro';
+import { site, mainService } from '@/data/site';
+
+interface Props {
+  /** True when the page opens with a full-bleed hero photo: header starts transparent. */
+  transparent?: boolean;
+}
+
+const { transparent = false } = Astro.props;
+
+// Strip trailing slashes so "/events/" and "/events/some-event" both match "/events".
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
+const links = [...site.navLinks, site.giveLink];
+---
+
+<header
+  id="site-header"
+  class="site-header fixed inset-x-0 top-0 z-50"
+  data-transparent={transparent ? 'true' : 'false'}
+  data-solid={transparent ? undefined : ''}
+>
+  <div class="mx-auto flex h-20 max-w-6xl items-center justify-between gap-6 px-6">
+    <a href="/" class="flex flex-col leading-none" aria-label={`${site.name}, home`}>
+      <!-- TODO: swap this wordmark for the church's logo file when available -->
+      <span class="font-serif text-2xl font-bold tracking-tight md:text-[1.7rem]">iCare</span>
+      <span class="mt-1 text-[0.6rem] font-semibold tracking-[0.3em] uppercase opacity-80">International</span>
+    </a>
+
+    <nav aria-label="Main" class="hidden lg:block">
+      <ul class="flex items-center gap-7 text-sm font-medium">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                class="relative py-2 opacity-90 transition-opacity hover:opacity-100 aria-[current=page]:opacity-100 aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-0 aria-[current=page]:after:-bottom-0.5 aria-[current=page]:after:h-px aria-[current=page]:after:bg-current"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <Button href={site.visitLink.href} class="header-cta">{site.visitLink.label}</Button>
+        </li>
+      </ul>
+    </nav>
+
+    <button
+      type="button"
+      id="menu-open"
+      class="-mr-2 inline-flex h-11 w-11 items-center justify-center rounded-full lg:hidden"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+    >
+      <span class="sr-only">Open menu</span>
+      <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M3 7h18M3 12h18M3 17h18" stroke-linecap="round"></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- Native <dialog> gives us focus trapping, Esc-to-close and an inert page behind it for free. -->
+<dialog
+  id="mobile-menu"
+  aria-label="Site menu"
+  class="mobile-menu surface-dark fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none bg-forest-dark p-0 text-white backdrop:bg-transparent"
+>
+  <div class="flex h-full flex-col px-6">
+    <div class="flex h-20 items-center justify-between">
+      <span class="font-serif text-2xl font-bold">iCare</span>
+      <button type="button" id="menu-close" class="-mr-2 inline-flex h-11 w-11 items-center justify-center rounded-full">
+        <span class="sr-only">Close menu</span>
+        <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+    <nav aria-label="Mobile" class="flex flex-1 flex-col justify-center overflow-y-auto py-8">
+      <ul class="space-y-4">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                class="font-serif text-4xl font-semibold opacity-90 hover:opacity-100 aria-[current=page]:text-gold-light"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-10">
+        <Button href={site.visitLink.href} variant="light">{site.visitLink.label}</Button>
+      </div>
+    </nav>
+    <p class="pb-8 text-sm text-white/75">
+      {mainService.day}s at {mainService.time} · {site.address.city}, {site.address.region}
+    </p>
+  </div>
+</dialog>
+
+<script>
+  const header = document.getElementById('site-header');
+  const menu = document.getElementById('mobile-menu') as HTMLDialogElement | null;
+  const openButton = document.getElementById('menu-open');
+  const closeButton = document.getElementById('menu-close');
+
+  // Transparent → solid after 40px of scroll (only on pages that start with a hero).
+  if (header?.dataset.transparent === 'true') {
+    const update = () => header.toggleAttribute('data-solid', window.scrollY > 40);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  }
+
+  if (menu && openButton && closeButton) {
+    openButton.addEventListener('click', () => {
+      menu.showModal();
+      openButton.setAttribute('aria-expanded', 'true');
+    });
+    closeButton.addEventListener('click', () => menu.close());
+    // Fires for the close button, Esc, and link clicks alike.
+    menu.addEventListener('close', () => {
+      openButton.setAttribute('aria-expanded', 'false');
+      openButton.focus();
+    });
+    // Close if the viewport grows to desktop while the menu is open.
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => {
+      if (e.matches && menu.open) menu.close();
+    });
+  }
+</script>

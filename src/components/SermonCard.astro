@@ -1,0 +1,28 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SermonThumbnail from '@/components/SermonThumbnail.astro';
+import { formatDate, isoDate } from '@/lib/dates';
+
+interface Props {
+  sermon: CollectionEntry<'sermons'>;
+}
+
+const { sermon } = Astro.props;
+const { title, speaker, date, scripture, youtubeId, series } = sermon.data;
+---
+
+<article class="group relative flex h-full flex-col">
+  <SermonThumbnail youtubeId={youtubeId} alt={`Video thumbnail for “${title}”`} />
+  <div class="mt-5 flex flex-1 flex-col">
+    {series && <p class="eyebrow mb-2">{series}</p>}
+    <h3 class="text-2xl">
+      <a href={`/sermons/${sermon.id}`} class="after:absolute after:inset-0">
+        {title}
+      </a>
+    </h3>
+    <p class="mt-2 text-sm text-muted">
+      {speaker} · <time datetime={isoDate(date)}>{formatDate(date)}</time>
+    </p>
+    {scripture && <p class="mt-1 text-sm text-muted">{scripture}</p>}
+  </div>
+</article>

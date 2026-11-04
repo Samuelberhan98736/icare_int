@@ -1,0 +1,39 @@
+---
+// Standard section wrapper: background, vertical rhythm, container, optional heading.
+import SectionHeading from '@/components/SectionHeading.astro';
+
+interface Props {
+  id?: string;
+  bg?: 'paper' | 'sand' | 'forest' | 'white';
+  width?: 'default' | 'narrow';
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  align?: 'left' | 'center';
+  class?: string;
+}
+
+const { id, bg = 'paper', width = 'default', eyebrow, title, intro, align = 'left', class: className } = Astro.props;
+
+const backgrounds = {
+  paper: 'bg-paper text-ink',
+  sand: 'bg-sand text-ink',
+  white: 'bg-white text-ink',
+  forest: 'bg-forest text-white surface-dark',
+} as const;
+
+const headingId = id && title ? `${id}-heading` : undefined;
+---
+
+<section id={id} aria-labelledby={headingId} class:list={['py-20 md:py-28', backgrounds[bg], className]}>
+  <div class:list={['mx-auto px-6', width === 'narrow' ? 'max-w-3xl' : 'max-w-6xl']}>
+    {
+      title && (
+        <div data-reveal class="mb-12 md:mb-16">
+          <SectionHeading id={headingId} eyebrow={eyebrow} title={title} intro={intro} align={align} />
+        </div>
+      )
+    }
+    <slot />
+  </div>
+</section>

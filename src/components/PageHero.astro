@@ -1,0 +1,36 @@
+---
+// Shorter image hero for inner pages. Pair with BaseLayout's transparentHeader.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  intro?: string;
+  image: ImageMetadata;
+  imageAlt: string;
+}
+
+const { title, eyebrow, intro, image, imageAlt } = Astro.props;
+---
+
+<section class="surface-dark relative isolate flex min-h-[60vh] items-end overflow-hidden text-white md:min-h-[65vh]">
+  <Image
+    src={image}
+    alt={imageAlt}
+    widths={[640, 1024, 1600, 2400]}
+    sizes="100vw"
+    loading="eager"
+    fetchpriority="high"
+    class="absolute inset-0 -z-20 h-full w-full object-cover"
+  />
+  <!-- Gradient keeps white text readable on any photo. -->
+  <div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink/85 via-ink/45 to-ink/30" aria-hidden="true"></div>
+  <div class="mx-auto w-full max-w-6xl px-6 pt-32 pb-16 md:pb-20">
+    <div data-reveal class="max-w-3xl">
+      {eyebrow && <p class="eyebrow mb-4">{eyebrow}</p>}
+      <h1 class="text-5xl leading-[1.05] md:text-6xl lg:text-7xl">{title}</h1>
+      {intro && <p class="mt-6 max-w-prose text-base leading-relaxed text-white/85 md:text-lg">{intro}</p>}
+    </div>
+  </div>
+</section>

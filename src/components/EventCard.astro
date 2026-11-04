@@ -1,0 +1,63 @@
+---
+// Event card. "vertical" for 3-up grids (home), "horizontal" for the events list.
+import type { CollectionEntry } from 'astro:content';
+import { dateParts, formatDate, isoDate } from '@/lib/dates';
+
+interface Props {
+  event: CollectionEntry<'events'>;
+  layout?: 'vertical' | 'horizontal';
+}
+
+const { event, layout = 'vertical' } = Astro.props;
+const { title, date, time, location, summary } = event.data;
+const parts = dateParts(date);
+const href = `/events/${event.id}`;
+---
+
+{
+  layout === 'vertical' ? (
+    <article class="group relative flex h-full flex-col rounded-2xl border border-line bg-white p-7 transition-shadow duration-300 hover:shadow-lg hover:shadow-ink/5">
+      <time datetime={isoDate(date)} class="flex items-baseline gap-2 text-forest">
+        <span class="font-serif text-5xl leading-none font-semibold">{parts.day}</span>
+        <span class="text-xs font-semibold tracking-[0.2em] uppercase">{parts.month}</span>
+      </time>
+      <h3 class="mt-6 text-2xl">
+        {/* Stretched link: the whole card is clickable, but only the title is announced. */}
+        <a href={href} class="after:absolute after:inset-0 after:rounded-2xl">
+          {title}
+        </a>
+      </h3>
+      <p class="mt-2 text-sm text-muted">
+        {parts.weekday} · {time} · {location}
+      </p>
+      <p class="mt-4 flex-1 text-base leading-relaxed">{summary}</p>
+      <span class="mt-6 text-sm font-medium text-forest" aria-hidden="true">
+        Details <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
+      </span>
+    </article>
+  ) : (
+    <article class="group relative flex flex-col gap-6 rounded-2xl border border-line bg-white p-6 transition-shadow duration-300 hover:shadow-lg hover:shadow-ink/5 sm:flex-row sm:items-center md:gap-10 md:p-8">
+      <time
+        datetime={isoDate(date)}
+        class="flex h-24 w-24 shrink-0 flex-col items-center justify-center rounded-2xl bg-forest text-white"
+      >
+        <span class="text-xs font-semibold tracking-[0.2em] uppercase">{parts.month}</span>
+        <span class="font-serif text-4xl leading-none font-semibold">{parts.day}</span>
+      </time>
+      <div class="flex-1">
+        <h2 class="text-2xl md:text-3xl">
+          <a href={href} class="after:absolute after:inset-0 after:rounded-2xl">
+            {title}
+          </a>
+        </h2>
+        <p class="mt-2 text-sm text-muted">
+          {formatDate(date, { weekday: 'long' })} · {time} · {location}
+        </p>
+        <p class="mt-3 max-w-prose leading-relaxed">{summary}</p>
+      </div>
+      <span class="hidden text-sm font-medium text-forest md:block" aria-hidden="true">
+        Details <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
+      </span>
+    </article>
+  )
+}

@@ -1,0 +1,149 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import SplitFeature from '@/components/SplitFeature.astro';
+import LeaderCard from '@/components/LeaderCard.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Button from '@/components/Button.astro';
+import heroImage from '@/assets/images/page-about.jpg';
+import storyImage from '@/assets/images/our-story.jpg';
+import pastorImage from '@/assets/images/pastor-teddy.jpg';
+import leader1 from '@/assets/images/leader-1.jpg';
+import leader2 from '@/assets/images/leader-2.jpg';
+import leader3 from '@/assets/images/leader-3.jpg';
+import leader4 from '@/assets/images/leader-4.jpg';
+import leader5 from '@/assets/images/leader-5.jpg';
+import { site } from '@/data/site';
+
+// TODO: the church to supply its statement of faith.
+const beliefs = [
+  { title: 'The Bible', text: 'We believe the Bible is the inspired Word of God and our guide for faith and life.' },
+  { title: 'God', text: 'We believe in one God, eternally existing as Father, Son, and Holy Spirit.' },
+  { title: 'Jesus Christ', text: 'We believe Jesus is the Son of God, who died for our sins and rose again.' },
+  { title: 'Salvation', text: 'We believe salvation is a gift of grace, received through faith in Jesus.' },
+  { title: 'The Holy Spirit', text: 'We believe the Holy Spirit lives in every believer, guiding and empowering us.' },
+  { title: 'The Church', text: 'We believe the church is a family called to worship, serve, and love the world.' },
+];
+
+// TODO: real leadership names, roles, and photos.
+const leaders = [
+  { name: 'Pastor Teddy', role: 'Senior Pastor', image: pastorImage },
+  { name: 'Leader Name', role: 'Associate Pastor', image: leader1 },
+  { name: 'Leader Name', role: 'Worship Director', image: leader2 },
+  { name: 'Leader Name', role: "Children's Ministry Lead", image: leader3 },
+  { name: 'Leader Name', role: 'Youth Pastor', image: leader4 },
+  { name: 'Leader Name', role: 'Elder', image: leader5 },
+];
+---
+
+<BaseLayout
+  title="About Us"
+  description={`Learn the story, mission, and beliefs of ${site.name}, an Ethiopian American church in Atlanta led by ${site.pastor}.`}
+  transparentHeader
+>
+  <PageHero
+    eyebrow="About Us"
+    title="Our Story, Our Family"
+    intro="A church family rooted in Ethiopian heritage, planted in Atlanta, and open to everyone."
+    image={heroImage}
+    imageAlt="The congregation gathered in the sanctuary"
+  />
+
+  <Section id="story">
+    <SplitFeature
+      image={storyImage}
+      imageAlt="Members of the church community gathered together"
+      eyebrow="Our Story"
+      title="From a living room to a church family"
+    >
+      <!-- TODO: replace with the church's real history -->
+      <p>
+        iCare International began as a small group of Ethiopian families who gathered in a living room in Atlanta
+        to pray, sing, and read Scripture together in their heart language. Far from home, they found in one
+        another a new family.
+      </p>
+      <p>
+        Over the years, that small gathering grew into a vibrant, multi-generational church. Today we are
+        first-generation immigrants and their children, longtime Atlantans and newcomers, all worshipping
+        together in Amharic and English.
+      </p>
+    </SplitFeature>
+  </Section>
+
+  <Section bg="sand" id="mission">
+    <div class="grid gap-12 md:grid-cols-2 md:gap-16">
+      <div data-reveal>
+        <p class="eyebrow mb-4">Our Mission</p>
+        <!-- TODO: confirm mission statement -->
+        <h2 class="text-3xl leading-snug md:text-4xl">
+          To love God, care for one another, and share the hope of Jesus with Atlanta and the nations.
+        </h2>
+      </div>
+      <div data-reveal style="--reveal-delay: 120ms">
+        <p class="eyebrow mb-4">Our Vision</p>
+        <!-- TODO: confirm vision statement -->
+        <h2 class="text-3xl leading-snug md:text-4xl">
+          A home for every heart, where every generation and culture grows together in Christ.
+        </h2>
+      </div>
+    </div>
+  </Section>
+
+  <Section
+    id="beliefs"
+    eyebrow="What We Believe"
+    title="Our Core Beliefs"
+    intro="These short statements summarize the heart of our faith."
+  >
+    <ul class="grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        beliefs.map((belief, i) => (
+          <li data-reveal style={`--reveal-delay: ${(i % 3) * 100}ms`} class="border-t border-line pt-6">
+            <h3 class="text-2xl">{belief.title}</h3>
+            <p class="mt-3 leading-relaxed text-muted">{belief.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section bg="sand" id="pastor">
+    <SplitFeature
+      image={pastorImage}
+      imageAlt="Portrait of Pastor Teddy"
+      aspect="portrait"
+      eyebrow="Meet Our Pastor"
+      title={site.pastor}
+      reverse
+    >
+      <!-- TODO: replace with Pastor Teddy's real bio -->
+      <p>
+        Pastor Teddy has served the iCare International family with a shepherd's heart for many years. Born in
+        Ethiopia and called to ministry in Atlanta, he is passionate about teaching the Bible clearly and helping
+        people of every background find a home in God's family.
+      </p>
+      <p>
+        When he isn't preaching, you'll find him visiting members, mentoring young leaders, and sharing a cup of
+        buna (coffee) with anyone who wants to talk.
+      </p>
+      <Fragment slot="actions">
+        <Button href="/contact" variant="secondary">Get in touch</Button>
+      </Fragment>
+    </SplitFeature>
+  </Section>
+
+  <Section id="leadership" eyebrow="Leadership" title="Our Leadership Team">
+    <ul class="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3">
+      {
+        leaders.map((leader, i) => (
+          <li data-reveal style={`--reveal-delay: ${(i % 3) * 100}ms`}>
+            <LeaderCard {...leader} />
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <CtaBand />
+</BaseLayout>

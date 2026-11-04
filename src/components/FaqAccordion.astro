@@ -1,0 +1,33 @@
+---
+// Built on <details>/<summary>: keyboard and screen-reader support with zero JS.
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: FaqItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="divide-y divide-line border-y border-line">
+  {
+    items.map((item) => (
+      <details class="group py-2">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 rounded-sm py-4 text-left [&::-webkit-details-marker]:hidden">
+          <span class="font-serif text-2xl font-semibold">{item.question}</span>
+          <span
+            class="relative h-4 w-4 shrink-0 text-forest transition-transform duration-300 group-open:rotate-45"
+            aria-hidden="true"
+          >
+            <span class="absolute top-1/2 left-0 h-px w-4 -translate-y-1/2 bg-current" />
+            <span class="absolute top-0 left-1/2 h-4 w-px -translate-x-1/2 bg-current" />
+          </span>
+        </summary>
+        <p class="max-w-prose pb-5 leading-relaxed text-muted md:text-lg">{item.answer}</p>
+      </details>
+    ))
+  }
+</div>

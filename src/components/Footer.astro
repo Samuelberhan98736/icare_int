@@ -1,0 +1,120 @@
+---
+import { site } from '@/data/site';
+
+const year = new Date().getFullYear();
+
+// Simple single-path icons (24×24). Decorative; each link carries its own text label.
+const socials = [
+  {
+    label: 'YouTube',
+    href: site.social.youtube,
+    path: 'M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8ZM10 15V9l5.2 3L10 15Z',
+  },
+  {
+    label: 'Facebook',
+    href: site.social.facebook,
+    path: 'M14 8h3V4h-3a5 5 0 0 0-5 5v2H6v4h3v9h4v-9h3l1-4h-4V9a1 1 0 0 1 1-1Z',
+  },
+  {
+    label: 'Instagram',
+    href: site.social.instagram,
+    path: 'M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.3-3.3a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z',
+  },
+  {
+    label: 'TikTok',
+    href: site.social.tiktok,
+    path: 'M16.6 3c.3 2.4 1.8 4 4.4 4.2v3.2a7.6 7.6 0 0 1-4.3-1.4v6.4A6.1 6.1 0 1 1 10.6 9.3v3.3a2.9 2.9 0 1 0 2.8 2.9V3h3.2Z',
+  },
+];
+
+const quickLinks = [...site.navLinks, site.giveLink];
+---
+
+<footer class="surface-dark bg-forest-dark text-white/80">
+  <div class="mx-auto grid max-w-6xl gap-12 px-6 py-16 sm:grid-cols-2 md:py-20 lg:grid-cols-4">
+    <div>
+      <a href="/" class="inline-flex flex-col leading-none text-white">
+        <span class="font-serif text-3xl font-bold">iCare</span>
+        <span class="mt-1 text-[0.6rem] font-semibold tracking-[0.3em] uppercase">International</span>
+      </a>
+      <p class="mt-5 max-w-xs text-sm leading-relaxed">{site.tagline}</p>
+      <ul class="mt-6 flex gap-3" aria-label="Social media">
+        {
+          socials.map((social) => (
+            <li>
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/25 text-white transition-colors hover:border-gold-light hover:text-gold-light"
+              >
+                <svg aria-hidden="true" class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="currentColor">
+                  <path d={social.path} fill-rule="evenodd" />
+                </svg>
+                <span class="sr-only">{social.label} (opens in a new tab)</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="eyebrow">Visit Us</h2>
+      <address class="mt-5 text-sm leading-relaxed not-italic">
+        {site.address.street}<br />
+        {`${site.address.city}, ${site.address.region} ${site.address.postalCode}`}
+      </address>
+      <a
+        href={site.directionsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-3 inline-block text-sm text-white underline underline-offset-4 hover:text-gold-light"
+      >
+        Get directions<span class="sr-only"> (opens in a new tab)</span>
+      </a>
+      <p class="mt-5 text-sm">
+        <a href={`tel:${site.phone.replace(/[^\d+]/g, '')}`} class="hover:text-white">{site.phone}</a><br />
+        <a href={`mailto:${site.email}`} class="hover:text-white">{site.email}</a>
+      </p>
+    </div>
+
+    <div>
+      <h2 class="eyebrow">Service Times</h2>
+      <ul class="mt-5 space-y-3 text-sm">
+        {
+          site.serviceTimes.map((service) => (
+            <li>
+              <span class="block text-white">{service.name}</span>
+              {service.day}s · {service.time}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <nav aria-label="Footer">
+      <h2 class="eyebrow">Quick Links</h2>
+      <ul class="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+        {
+          quickLinks.map((link) => (
+            <li>
+              <a href={link.href} class="hover:text-white">
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div
+      class="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-6 text-xs text-white/70 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} {site.name}. All rights reserved.</p>
+      <p>An Ethiopian American church in {site.address.city}, Georgia.</p>
+    </div>
+  </div>
+</footer>

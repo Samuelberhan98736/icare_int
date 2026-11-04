@@ -1,0 +1,160 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import Section from '@/components/Section.astro';
+import ServiceTimes from '@/components/ServiceTimes.astro';
+import FaqAccordion, { type FaqItem } from '@/components/FaqAccordion.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Button from '@/components/Button.astro';
+import heroImage from '@/assets/images/page-visit.jpg';
+import { site, mainService } from '@/data/site';
+
+// Simple line icons (24×24 stroke paths), decorative only.
+const expectations = [
+  {
+    title: 'Worship',
+    text: 'Heartfelt worship led by our band and choir, with songs in Amharic and English.',
+    icon: 'M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z',
+  },
+  {
+    title: 'Teaching',
+    text: `Practical, Bible-centered preaching from ${site.pastor} that speaks to everyday life.`,
+    icon: 'M12 6.5C10 5 7 4.5 3 5v13c4-.5 7 0 9 1.5m0-13c2-1.5 5-2 9-1.5v13c-4-.5-7 0-9 1.5m0-13v13',
+  },
+  {
+    title: 'Kids',
+    text: 'Safe, fun, age-appropriate classes for children during the service.',
+    icon: 'M12 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-6 13v-4a6 6 0 0 1 12 0v4M4 12l3 2m13-2-3 2',
+  },
+  {
+    title: 'Fellowship',
+    text: 'Stay after the service for coffee, conversation, and a warm welcome.',
+    icon: 'M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9Zm13 1h1.5a2.5 2.5 0 0 1 0 5H17M8 2v3m4-3v3',
+  },
+];
+
+// TODO: confirm all answers with the church.
+const faqs: FaqItem[] = [
+  {
+    question: 'What should I wear?',
+    answer:
+      'Whatever you feel comfortable in. You will see everything from traditional Ethiopian dress to jeans. There is no dress code.',
+  },
+  {
+    question: 'Is there childcare?',
+    answer:
+      'Yes. We offer a staffed nursery and children’s classes during the Sunday service. Our volunteers are trained and background-checked.',
+  },
+  {
+    question: 'How long is the service?',
+    answer: 'Our Sunday service lasts about two hours, including worship, prayer, and the message.',
+  },
+  {
+    question: 'Is the service in Amharic or English?',
+    answer:
+      'Both. Worship and preaching happen in Amharic and English, and we provide translation so everyone can follow along. (TODO: confirm format.)',
+  },
+  {
+    question: 'Where do I park?',
+    answer:
+      'Free parking is available in the main lot. Look for our greeters near the front entrance, and accessible spaces are close to the doors.',
+  },
+  {
+    question: 'Do I need to give or sign up for anything?',
+    answer:
+      'Not at all. Please come as our guest. We’ll never pressure you to give or join anything on your first visit.',
+  },
+];
+---
+
+<BaseLayout
+  title="Plan a Visit"
+  description={`Service times, what to expect, directions, and answers to common questions for your first visit to ${site.name} in Atlanta.`}
+  transparentHeader
+>
+  <PageHero
+    eyebrow="Plan a Visit"
+    title="Plan Your Visit"
+    intro="We can't wait to meet you. Here's everything you need to know before your first Sunday."
+    image={heroImage}
+    imageAlt="Greeters welcoming visitors at the church entrance"
+  />
+
+  <Section id="times" eyebrow="When" title="Service Times">
+    <div data-reveal>
+      <ServiceTimes variant="cards" />
+    </div>
+    <p class="mt-6 text-sm text-muted">Arrive 10–15 minutes early to grab a coffee and find a seat.</p>
+  </Section>
+
+  <Section bg="sand" id="expect" eyebrow="What to Expect" title="Your First Sunday">
+    <ul class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        expectations.map((item, i) => (
+          <li data-reveal style={`--reveal-delay: ${i * 100}ms`}>
+            <span class="flex h-14 w-14 items-center justify-center rounded-full bg-paper text-forest" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                class="h-6 w-6"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d={item.icon} />
+              </svg>
+            </span>
+            <h3 class="mt-5 text-2xl">{item.title}</h3>
+            <p class="mt-2 leading-relaxed text-muted">{item.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+    <!-- TODO: confirm the languages used in services -->
+    <p data-reveal class="mt-14 max-w-prose rounded-2xl border border-line bg-paper p-6 leading-relaxed">
+      <strong class="font-semibold">A note on language:</strong> our services are held in Amharic and English. Whichever
+      language you speak, you'll be able to follow along and feel at home.
+    </p>
+  </Section>
+
+  <Section id="location" eyebrow="Where" title="Location & Parking">
+    <div class="grid gap-10 md:grid-cols-5 md:gap-16">
+      <div data-reveal class="md:col-span-2">
+        <address class="font-serif text-3xl leading-snug font-semibold not-italic">
+          {site.address.street}<br />
+          {`${site.address.city}, ${site.address.region} ${site.address.postalCode}`}
+        </address>
+        <!-- TODO: confirm parking details -->
+        <p class="mt-6 leading-relaxed text-muted">
+          Free parking is available on site. Accessible parking spaces are located closest to the main entrance.
+          Greeters will be outside before every {mainService.day} service to help you find your way.
+        </p>
+        <div class="mt-8">
+          <Button href={site.directionsUrl} external>Get directions</Button>
+        </div>
+      </div>
+      <div data-reveal class="overflow-hidden rounded-2xl border border-line md:col-span-3">
+        <iframe
+          src={site.mapEmbedUrl}
+          title={`Map showing the location of ${site.name}`}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="aspect-[4/3] h-full min-h-80 w-full"></iframe>
+      </div>
+    </div>
+  </Section>
+
+  <Section bg="sand" id="faq" eyebrow="FAQ" title="Common Questions" width="narrow">
+    <div data-reveal>
+      <FaqAccordion items={faqs} />
+    </div>
+  </Section>
+
+  <CtaBand
+    eyebrow="Still have questions?"
+    title="Questions? Contact us"
+    text="We're happy to help you plan your first visit. Send us a message and someone from our team will reply."
+    primary={{ label: 'Contact us', href: '/contact' }}
+  />
+</BaseLayout>

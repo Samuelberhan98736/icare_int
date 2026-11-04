@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/Button.astro';
+import { site } from '@/data/site';
+---
+
+<BaseLayout title="Page Not Found" description={`This page could not be found on the ${site.name} website.`} noindex>
+  <section class="py-24 md:py-36">
+    <div class="mx-auto max-w-2xl px-6 text-center">
+      <p class="eyebrow">Error 404</p>
+      <h1 class="mt-4 text-5xl md:text-7xl">This page wandered off</h1>
+      <p class="mx-auto mt-6 max-w-prose text-lg leading-relaxed text-muted">
+        We couldn't find the page you were looking for. It may have moved, or the link may be out of date. But
+        you're always welcome here.
+      </p>
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
+        <Button href="/">Go home</Button>
+        <Button href={site.visitLink.href} variant="secondary">Plan a Visit</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

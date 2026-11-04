@@ -1,0 +1,181 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/Button.astro';
+import Section from '@/components/Section.astro';
+import SplitFeature from '@/components/SplitFeature.astro';
+import ServiceTimes from '@/components/ServiceTimes.astro';
+import MinistryCard from '@/components/MinistryCard.astro';
+import EventCard from '@/components/EventCard.astro';
+import SermonThumbnail from '@/components/SermonThumbnail.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import TibebDivider from '@/components/TibebDivider.astro';
+import heroImage from '@/assets/images/hero-worship.jpg';
+import pastorImage from '@/assets/images/pastor-teddy.jpg';
+import { site, mainService } from '@/data/site';
+import { getMinistries, getSermons, getUpcomingEvents } from '@/lib/content';
+import { formatDate, isoDate } from '@/lib/dates';
+
+const ministries = (await getMinistries()).slice(0, 6);
+const [latestSermon] = await getSermons();
+const events = await getUpcomingEvents(3);
+---
+
+<BaseLayout title={site.name} description={site.description} transparentHeader>
+  <!-- 1. Hero -->
+  <section class="surface-dark relative isolate flex min-h-[90vh] items-center overflow-hidden text-white">
+    <Image
+      src={heroImage}
+      alt="The iCare International congregation worshipping together on a Sunday morning"
+      widths={[640, 1024, 1600, 2400]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="absolute inset-0 -z-20 h-full w-full object-cover"
+    />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-ink/60 via-ink/50 to-ink/75" aria-hidden="true"></div>
+    <div data-reveal class="mx-auto max-w-4xl px-6 pt-24 pb-16 text-center">
+      <p class="eyebrow mb-6">Welcome to {site.name}</p>
+      <h1 class="text-5xl leading-[1.02] md:text-7xl">A Home for Every Heart</h1>
+      <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-white/85 md:text-xl">
+        An Ethiopian American church family in Atlanta, growing together in faith, hope, and love.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <Button href={site.visitLink.href} variant="light">Plan a Visit</Button>
+        <Button href="/sermons" variant="secondary" inverse>Watch Online</Button>
+      </div>
+      <p class="mt-10 text-sm tracking-wide text-white/80">
+        {mainService.day}s at {mainService.time} · {site.address.city}, {site.address.region}
+      </p>
+    </div>
+  </section>
+  <TibebDivider />
+
+  <!-- 2. Welcome from the pastor -->
+  <Section>
+    <SplitFeature
+      image={pastorImage}
+      imageAlt="Portrait of Pastor Teddy"
+      aspect="portrait"
+      eyebrow="Our Pastor"
+      title="You are welcome here"
+    >
+      <!-- TODO: replace with a welcome note written by Pastor Teddy -->
+      <p>
+        Whether you grew up in the church or are just beginning to ask questions about faith, we're so glad you
+        found us. iCare International is a family. We worship together, pray for one another, and share life
+        across generations and cultures.
+      </p>
+      <p>
+        Our doors are open to everyone: Ethiopian, Eritrean, American, and every nation in between. Come as you
+        are. We would love to meet you.
+      </p>
+      <p class="font-serif text-2xl italic">— {site.pastor}</p>
+      <Fragment slot="actions">
+        <Button href="/about#leadership" variant="ghost">Meet our leadership</Button>
+      </Fragment>
+    </SplitFeature>
+  </Section>
+
+  <!-- 3. Service times -->
+  <Section bg="sand" id="service-times" eyebrow="Join Us" title="Service Times" align="center">
+    <ServiceTimes />
+    <div class="mt-14 text-center">
+      <p class="text-muted">{site.fullAddress}</p>
+      <Button href={site.directionsUrl} variant="ghost" external class="mt-3">Get directions</Button>
+    </div>
+  </Section>
+
+  <!-- 4. Ministries -->
+  <Section
+    id="ministries"
+    eyebrow="Ministries"
+    title="Find Your Place"
+    intro="There's a place for everyone at iCare, from our littlest ones to our elders. Find a community to grow with."
+  >
+    <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        ministries.map((ministry, i) => (
+          <li data-reveal style={`--reveal-delay: ${(i % 3) * 100}ms`}>
+            <MinistryCard ministry={ministry} />
+          </li>
+        ))
+      }
+    </ul>
+    <div class="mt-12">
+      <Button href="/ministries" variant="secondary">Explore all ministries</Button>
+    </div>
+  </Section>
+
+  <!-- 5. Latest sermon -->
+  {
+    latestSermon && (
+      <Section bg="forest" id="latest-sermon">
+        <div class="grid items-center gap-10 md:grid-cols-2 md:gap-16">
+          <a href={`/sermons/${latestSermon.id}`} class="group block rounded-2xl" data-reveal>
+            <SermonThumbnail
+              youtubeId={latestSermon.data.youtubeId}
+              alt={`Watch “${latestSermon.data.title}”`}
+              size="lg"
+            />
+          </a>
+          <div data-reveal style="--reveal-delay: 120ms">
+            <p class="eyebrow mb-4">Latest Sermon</p>
+            <h2 class="text-4xl md:text-5xl">{latestSermon.data.title}</h2>
+            <p class="mt-5 text-white/80">
+              {latestSermon.data.speaker} ·{' '}
+              <time datetime={isoDate(latestSermon.data.date)}>{formatDate(latestSermon.data.date)}</time>
+            </p>
+            {latestSermon.data.scripture && <p class="mt-1 text-white/80">{latestSermon.data.scripture}</p>}
+            {latestSermon.data.summary && (
+              <p class="mt-6 max-w-prose leading-relaxed text-white/90 md:text-lg">{latestSermon.data.summary}</p>
+            )}
+            <div class="mt-8 flex flex-wrap gap-4">
+              <Button href={`/sermons/${latestSermon.id}`} variant="light">
+                Watch now
+              </Button>
+              <Button href="/sermons" variant="secondary" inverse>
+                All sermons
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Section>
+    )
+  }
+
+  <!-- 6. Upcoming events -->
+  <Section id="events" eyebrow="What's Happening" title="Upcoming Events">
+    {
+      events.length > 0 ? (
+        <ul class="grid gap-6 md:grid-cols-3">
+          {events.map((event, i) => (
+            <li data-reveal style={`--reveal-delay: ${i * 100}ms`}>
+              <EventCard event={event} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="text-muted">New events are coming soon. Check back shortly.</p>
+      )
+    }
+    <div class="mt-12">
+      <Button href="/events" variant="ghost">View all events</Button>
+    </div>
+  </Section>
+
+  <!-- 7. Scripture -->
+  <section class="bg-sand py-24 md:py-36" aria-label="Scripture">
+    <figure data-reveal class="mx-auto max-w-4xl px-6 text-center">
+      <span class="mx-auto block h-px w-16 bg-gold" aria-hidden="true"></span>
+      <!-- TODO: choose the church's preferred verse -->
+      <blockquote class="mt-10 font-serif text-3xl leading-snug font-semibold italic md:text-5xl md:leading-tight">
+        “God sets the lonely in families.”
+      </blockquote>
+      <figcaption class="eyebrow mt-8">Psalm 68:6</figcaption>
+    </figure>
+  </section>
+
+  <!-- 8. Closing CTA -->
+  <CtaBand />
+</BaseLayout>

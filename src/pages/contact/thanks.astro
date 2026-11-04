@@ -1,0 +1,31 @@
+---
+// Thank-you state shown after a successful contact form submission.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/Button.astro';
+import { site } from '@/data/site';
+---
+
+<BaseLayout title="Thank You" description={`Thanks for contacting ${site.name}.`} noindex>
+  <section class="py-24 md:py-36">
+    <div class="mx-auto max-w-2xl px-6 text-center">
+      <span
+        class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-forest text-white"
+        aria-hidden="true"
+      >
+        <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12.5l4.5 4.5L19 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </span>
+      <p class="eyebrow mt-8">Message sent</p>
+      <h1 class="mt-4 text-5xl md:text-6xl">Thank you!</h1>
+      <p class="mx-auto mt-6 max-w-prose text-lg leading-relaxed text-muted">
+        We received your message and someone from our team will get back to you soon. We're grateful you reached
+        out.
+      </p>
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
+        <Button href="/">Back to home</Button>
+        <Button href={site.visitLink.href} variant="secondary">Plan a Visit</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

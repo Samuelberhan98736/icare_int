@@ -1,0 +1,54 @@
+---
+// Full-width closing call to action over a photo. Defaults to "Plan a Visit".
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Button from '@/components/Button.astro';
+import defaultImage from '@/assets/images/cta-community.jpg';
+import { site } from '@/data/site';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  text?: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+  image?: ImageMetadata;
+  imageAlt?: string;
+}
+
+const {
+  eyebrow = 'Join us this Sunday',
+  title = 'We’d love to meet you',
+  text = `Come as you are. Worship with us ${site.serviceTimes[0].day}s at ${site.serviceTimes[0].time}.`,
+  primary = site.visitLink,
+  secondary,
+  image = defaultImage,
+  imageAlt = 'Members of the iCare International family greeting each other after a service',
+} = Astro.props;
+---
+
+<section class="surface-dark relative isolate overflow-hidden py-28 text-white md:py-36" aria-labelledby="cta-heading">
+  <Image
+    src={image}
+    alt={imageAlt}
+    widths={[640, 1280, 1920]}
+    sizes="100vw"
+    class="absolute inset-0 -z-20 h-full w-full object-cover"
+  />
+  <div class="absolute inset-0 -z-10 bg-forest-dark/80" aria-hidden="true"></div>
+  <div data-reveal class="mx-auto max-w-3xl px-6 text-center">
+    <p class="eyebrow mb-4">{eyebrow}</p>
+    <h2 id="cta-heading" class="text-4xl md:text-6xl">{title}</h2>
+    {text && <p class="mx-auto mt-6 max-w-prose text-base leading-relaxed text-white/85 md:text-lg">{text}</p>}
+    <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+      <Button href={primary.href} variant="light">{primary.label}</Button>
+      {
+        secondary && (
+          <Button href={secondary.href} variant="secondary" inverse>
+            {secondary.label}
+          </Button>
+        )
+      }
+    </div>
+  </div>
+</section>
