@@ -18,7 +18,7 @@ const imgClass =
   'aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]';
 ---
 
-<div class="relative overflow-hidden rounded-2xl bg-forest-dark">
+<div class="relative overflow-hidden rounded-2xl bg-navy-dark">
   {
     remote ? (
       <img src={remote} alt={alt} width="480" height="360" loading={eager ? 'eager' : 'lazy'} class={imgClass} />
@@ -36,7 +36,7 @@ const imgClass =
   <span class="absolute inset-0 flex items-center justify-center bg-ink/15" aria-hidden="true">
     <span
       class:list={[
-        'flex items-center justify-center rounded-full bg-white/95 text-forest shadow-lg transition-transform duration-300 group-hover:scale-110',
+        'flex items-center justify-center rounded-full bg-white/95 text-navy shadow-lg transition-transform duration-300 group-hover:scale-110',
         size === 'lg' ? 'h-20 w-20' : 'h-14 w-14',
       ]}
     >

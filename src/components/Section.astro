@@ -4,7 +4,7 @@ import SectionHeading from '@/components/SectionHeading.astro';
 
 interface Props {
   id?: string;
-  bg?: 'paper' | 'sand' | 'forest' | 'white';
+  bg?: 'paper' | 'sand' | 'navy' | 'white';
   width?: 'default' | 'narrow';
   eyebrow?: string;
   title?: string;
@@ -19,7 +19,7 @@ const backgrounds = {
   paper: 'bg-paper text-ink',
   sand: 'bg-sand text-ink',
   white: 'bg-white text-ink',
-  forest: 'bg-forest text-white surface-dark',
+  navy: 'bg-navy text-white surface-dark',
 } as const;
 
 const headingId = id && title ? `${id}-heading` : undefined;

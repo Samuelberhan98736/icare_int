@@ -33,12 +33,12 @@ const base =
 const pill = 'rounded-full px-7 py-3 text-sm';
 
 const variants: Record<Variant, string> = {
-  primary: `${pill} bg-forest text-white hover:bg-forest-dark`,
+  primary: `${pill} bg-navy text-white hover:bg-navy-dark`,
   secondary: inverse
     ? `${pill} border border-white text-white hover:bg-white hover:text-ink`
     : `${pill} border border-ink text-ink hover:bg-ink hover:text-white`,
   light: `${pill} bg-white text-ink hover:bg-sand`,
-  ghost: `group rounded-sm text-sm ${inverse ? 'text-white' : 'text-forest hover:text-forest-dark'}`,
+  ghost: `group rounded-sm text-sm ${inverse ? 'text-white' : 'text-navy hover:text-navy-dark'}`,
 };
 
 const classes = [base, variants[variant], className];

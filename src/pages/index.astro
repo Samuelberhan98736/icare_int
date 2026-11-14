@@ -110,7 +110,7 @@ const events = await getUpcomingEvents(3);
   <!-- 5. Latest sermon -->
   {
     latestSermon && (
-      <Section bg="forest" id="latest-sermon">
+      <Section bg="navy" id="latest-sermon">
         <div class="grid items-center gap-10 md:grid-cols-2 md:gap-16">
           <a href={`/sermons/${latestSermon.id}`} class="group block rounded-2xl" data-reveal>
             <SermonThumbnail
@@ -167,7 +167,7 @@ const events = await getUpcomingEvents(3);
   <!-- 7. Scripture -->
   <section class="bg-sand py-24 md:py-36" aria-label="Scripture">
     <figure data-reveal class="mx-auto max-w-4xl px-6 text-center">
-      <span class="mx-auto block h-px w-16 bg-gold" aria-hidden="true"></span>
+      <span class="mx-auto block h-px w-16 bg-amber" aria-hidden="true"></span>
       <!-- TODO: choose the church's preferred verse -->
       <blockquote class="mt-10 font-serif text-3xl leading-snug font-semibold italic md:text-5xl md:leading-tight">
         “God sets the lonely in families.”

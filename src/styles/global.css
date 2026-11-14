@@ -2,22 +2,23 @@
 
 /* ------------------------------------------------------------------
    Design tokens. Components use these via Tailwind utilities
-   (bg-forest, text-muted, font-serif …). Never hard-code hex values.
+   (bg-navy, text-muted, font-serif …). Never hard-code hex values.
    ------------------------------------------------------------------ */
 @theme {
-  --color-paper: #faf8f4;
-  --color-sand: #f1ece3;
-  --color-ink: #1c1b19;
-  --color-muted: #6b665e;
-  --color-line: #e3ddd2;
-  --color-forest: #1f4537;
-  --color-forest-dark: #16332a;
-  --color-gold: #b8893b;
-  /* The base gold is only ~3.6:1 on paper and ~2.8:1 on forest, so it is used
-     for decoration (dividers, icons, rules). Small gold *text* uses these two
-     shades instead to meet WCAG AA (4.5:1) on light and dark surfaces. */
-  --color-gold-ink: #85601e;
-  --color-gold-light: #dcb878;
+  --color-paper: #f8faf9;
+  --color-sand: #edf3f2;
+  --color-ink: #0b1727;
+  --color-muted: #5a6675;
+  --color-line: #dce4e3;
+  --color-navy: #12344b;
+  --color-navy-dark: #0b1727;
+  /* Amber is used for decoration (dividers, icons, rules). */
+  --color-amber: #f2b84b;
+  /* Bright teal is ~5.7:1 on navy, so it is used for small text on dark
+     surfaces. On light surfaces small teal text uses the darker teal-ink
+     (~4.8:1 on sand) to meet WCAG AA. */
+  --color-teal-ink: #00786a;
+  --color-teal: #00c2a8;
 
   --font-serif: "Cormorant Garamond", "Noto Serif Ethiopic", Georgia, "Times New Roman", serif;
   --font-sans: "Inter Variable", "Inter", "Noto Sans Ethiopic", ui-sans-serif, system-ui, sans-serif;
@@ -47,13 +48,13 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-forest);
+    outline: 2px solid var(--color-navy);
     outline-offset: 3px;
   }
 
-  /* Dark surfaces (hero, forest bands, footer, mobile menu) swap to a light focus ring. */
+  /* Dark surfaces (hero, navy bands, footer, mobile menu) swap to a light focus ring. */
   .surface-dark :focus-visible {
-    outline-color: var(--color-gold-light);
+    outline-color: var(--color-teal);
   }
 
   /* Lock page scroll while the mobile menu dialog is open. */
@@ -70,10 +71,10 @@
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--color-gold-ink);
+    color: var(--color-teal-ink);
   }
   .surface-dark .eyebrow {
-    color: var(--color-gold-light);
+    color: var(--color-teal);
   }
 
   /* Markdown body copy (event, sermon, ministry content). */
@@ -91,7 +92,7 @@
     font-size: var(--text-3xl);
   }
   .prose-church a {
-    color: var(--color-forest);
+    color: var(--color-navy);
     text-decoration: underline;
     text-underline-offset: 3px;
   }
@@ -104,7 +105,7 @@
     padding-left: 1.25em;
   }
   .prose-church blockquote {
-    border-left: 2px solid var(--color-gold);
+    border-left: 2px solid var(--color-amber);
     padding-left: 1.25em;
     font-family: var(--font-serif);
     font-size: var(--text-2xl);
@@ -131,9 +132,9 @@
   backdrop-filter: blur(8px);
 }
 .site-header[data-solid] :focus-visible {
-  outline-color: var(--color-forest);
+  outline-color: var(--color-navy);
 }
-/* Over a photo the CTA is white; on the solid header it becomes the forest primary. */
+/* Over a photo the CTA is white; on the solid header it becomes the navy primary. */
 .site-header:not([data-solid]) .header-cta {
   background-color: white;
   color: var(--color-ink);
