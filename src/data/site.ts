@@ -37,7 +37,7 @@ export const site = {
   email: 'ayted94@gmail.com',
   serviceTimes: [
     // TODO: confirm service names, days, times, and languages
-    { name: 'Sunday Worship', day: 'Sunday', time: '10:00 AM', language: 'Amharic & English' },
+    { name: 'Sunday Worship', day: 'Sunday', time: '10:00 AM – 12:30 PM', language: 'Amharic & English' },
     { name: 'Bible Study', day: 'Sunday', time: '8:00 – 9:00 PM', language: 'Amharic' },
   ] satisfies readonly ServiceTime[],
   social: {
