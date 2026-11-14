@@ -12,7 +12,7 @@ const { variant = 'band' } = Astro.props;
 
 {
   variant === 'band' ? (
-    <ul class="grid gap-10 text-center sm:grid-cols-3 sm:gap-6">
+    <ul class="mx-auto grid max-w-4xl gap-10 text-center sm:grid-cols-2 sm:gap-6">
       {site.serviceTimes.map((service, i) => (
         <li data-reveal style={`--reveal-delay: ${i * 100}ms`}>
           <p class="eyebrow">{service.day}s</p>
@@ -23,7 +23,7 @@ const { variant = 'band' } = Astro.props;
       ))}
     </ul>
   ) : (
-    <ul class="grid gap-4 sm:grid-cols-3">
+    <ul class="grid gap-4 sm:grid-cols-2">
       {site.serviceTimes.map((service) => (
         <li class="rounded-2xl border border-line bg-white p-6">
           <p class="eyebrow">{service.day}s</p>

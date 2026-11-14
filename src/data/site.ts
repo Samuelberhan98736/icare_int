@@ -38,8 +38,7 @@ export const site = {
   serviceTimes: [
     // TODO: confirm service names, days, times, and languages
     { name: 'Sunday Worship', day: 'Sunday', time: '10:00 AM', language: 'Amharic & English' },
-    { name: 'Bible Study', day: 'Wednesday', time: '7:00 PM', language: 'Amharic' },
-    { name: 'Prayer Night', day: 'Friday', time: '7:00 PM' },
+    { name: 'Bible Study', day: 'Sunday', time: '8:00 – 9:00 PM', language: 'Amharic' },
   ] satisfies readonly ServiceTime[],
   social: {
     youtube: 'https://www.youtube.com/@pastortheodrosbezabih3233',
@@ -51,6 +50,8 @@ export const site = {
     { label: 'About', href: '/about' },
     { label: 'Visit', href: '/visit' },
     { label: 'Sermons', href: '/sermons' },
+    { label: 'Events', href: '/events' },
+    { label: 'Second Generation', href: '/second-generation' },
     { label: 'Contact', href: '/contact' },
   ] satisfies readonly NavLink[],
   visitLink: { label: 'Plan a Visit', href: '/visit' } satisfies NavLink,

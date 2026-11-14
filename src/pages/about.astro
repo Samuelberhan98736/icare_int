@@ -3,17 +3,11 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import Section from '@/components/Section.astro';
 import SplitFeature from '@/components/SplitFeature.astro';
-import LeaderCard from '@/components/LeaderCard.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Button from '@/components/Button.astro';
 import heroImage from '@/assets/images/page-about.jpg';
 import storyImage from '@/assets/images/our-story.jpg';
 import pastorImage from '@/assets/images/pastor-teddy.jpg';
-import leader1 from '@/assets/images/leader-1.jpg';
-import leader2 from '@/assets/images/leader-2.jpg';
-import leader3 from '@/assets/images/leader-3.jpg';
-import leader4 from '@/assets/images/leader-4.jpg';
-import leader5 from '@/assets/images/leader-5.jpg';
 import { site } from '@/data/site';
 
 // TODO: the church to supply its statement of faith.
@@ -26,15 +20,6 @@ const beliefs = [
   { title: 'The Church', text: 'We believe the church is a family called to worship, serve, and love the world.' },
 ];
 
-// TODO: real leadership names, roles, and photos.
-const leaders = [
-  { name: 'Pastor Teddy', role: 'Senior Pastor', image: pastorImage },
-  { name: 'Leader Name', role: 'Associate Pastor', image: leader1 },
-  { name: 'Leader Name', role: 'Worship Director', image: leader2 },
-  { name: 'Leader Name', role: "Children's Ministry Lead", image: leader3 },
-  { name: 'Leader Name', role: 'Youth Pastor', image: leader4 },
-  { name: 'Leader Name', role: 'Elder', image: leader5 },
-];
 ---
 
 <BaseLayout
@@ -131,18 +116,6 @@ const leaders = [
         <Button href="/contact" variant="secondary">Get in touch</Button>
       </Fragment>
     </SplitFeature>
-  </Section>
-
-  <Section id="leadership" eyebrow="Leadership" title="Our Leadership Team">
-    <ul class="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3">
-      {
-        leaders.map((leader, i) => (
-          <li data-reveal style={`--reveal-delay: ${(i % 3) * 100}ms`}>
-            <LeaderCard {...leader} />
-          </li>
-        ))
-      }
-    </ul>
   </Section>
 
   <CtaBand />

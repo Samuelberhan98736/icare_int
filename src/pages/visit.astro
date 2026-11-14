@@ -3,7 +3,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import Section from '@/components/Section.astro';
 import ServiceTimes from '@/components/ServiceTimes.astro';
-import FaqAccordion, { type FaqItem } from '@/components/FaqAccordion.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Button from '@/components/Button.astro';
 import heroImage from '@/assets/images/page-visit.jpg';
@@ -30,39 +29,6 @@ const expectations = [
     title: 'Fellowship',
     text: 'Stay after the service for coffee, conversation, and a warm welcome.',
     icon: 'M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9Zm13 1h1.5a2.5 2.5 0 0 1 0 5H17M8 2v3m4-3v3',
-  },
-];
-
-// TODO: confirm all answers with the church.
-const faqs: FaqItem[] = [
-  {
-    question: 'What should I wear?',
-    answer:
-      'Whatever you feel comfortable in. You will see everything from traditional Ethiopian dress to jeans. There is no dress code.',
-  },
-  {
-    question: 'Is there childcare?',
-    answer:
-      'Yes. We offer a staffed nursery and children’s classes during the Sunday service. Our volunteers are trained and background-checked.',
-  },
-  {
-    question: 'How long is the service?',
-    answer: 'Our Sunday service lasts about two hours, including worship, prayer, and the message.',
-  },
-  {
-    question: 'Is the service in Amharic or English?',
-    answer:
-      'Both. Worship and preaching happen in Amharic and English, and we provide translation so everyone can follow along. (TODO: confirm format.)',
-  },
-  {
-    question: 'Where do I park?',
-    answer:
-      'Free parking is available in the main lot. Look for our greeters near the front entrance, and accessible spaces are close to the doors.',
-  },
-  {
-    question: 'Do I need to give or sign up for anything?',
-    answer:
-      'Not at all. Please come as our guest. We’ll never pressure you to give or join anything on your first visit.',
   },
 ];
 ---
@@ -142,12 +108,6 @@ const faqs: FaqItem[] = [
           referrerpolicy="no-referrer-when-downgrade"
           class="aspect-[4/3] h-full min-h-80 w-full"></iframe>
       </div>
-    </div>
-  </Section>
-
-  <Section bg="sand" id="faq" eyebrow="FAQ" title="Common Questions" width="narrow">
-    <div data-reveal>
-      <FaqAccordion items={faqs} />
     </div>
   </Section>
 

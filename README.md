@@ -103,7 +103,6 @@ All photos are neutral placeholders labelled "PLACEHOLDER PHOTO". To replace one
 | `src/assets/images/page-visit.jpg` | 2400×1200 | Building exterior / greeters | Visit banner |
 | `src/assets/images/page-sermons.jpg` | 2400×1200 | Pastor preaching | Sermons banner |
 | `src/assets/images/page-contact.jpg` | 2400×1200 | Welcome desk / greeters | Contact banner |
-| `src/assets/images/leader-1.jpg` … `leader-5.jpg` | 800×1000 (portrait) | Leadership portraits | About → Leadership (names/roles in `src/pages/about.astro`) |
 | `src/assets/images/sermon-placeholder.jpg` | 1280×720 | Generic sermon thumbnail (shown when a sermon has no YouTube video) | Sermons |
 | `public/og-default.jpg` | 1200×630 | Image shown when the site is shared on social media | All pages |
 
@@ -117,7 +116,7 @@ Also still needed: the church logo (currently a text wordmark in `Header.astro`/
 - Are services in Amharic, English, or both? Should the site become bilingual? (Fonts for Amharic script are already included; a later phase could add `/am/...` pages with Astro's i18n routing.)
 - Logo files and any existing brand colors.
 - Giving platform URL, YouTube channel, and social media handles.
-- Statement of faith, mission/vision wording, history, Pastor Teddy's bio, and leadership names.
+- Statement of faith, mission/vision wording, history, and Pastor Teddy's bio.
 - Real photos (see the table above).
 
 ## Deploying (later)
