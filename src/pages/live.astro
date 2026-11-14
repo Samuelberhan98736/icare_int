@@ -1,0 +1,35 @@
+---
+// Watch the current livestream. The live banner links here during Sunday service.
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/Button.astro';
+import { site, mainService } from '@/data/site';
+---
+
+<BaseLayout title="Watch Live" description={`Watch ${site.name}'s Sunday service live.`}>
+  <section class="py-16 md:py-24">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="text-center">
+        <p class="eyebrow">Live</p>
+        <h1 class="mt-4 text-5xl md:text-6xl">Worship With Us Live</h1>
+        <p class="mx-auto mt-5 max-w-prose leading-relaxed text-muted md:text-lg">
+          We stream {mainService.name} {mainService.day}s, {mainService.time}. If we're not live right now, the
+          player will show our next or most recent stream.
+        </p>
+      </div>
+      <div class="mt-12 aspect-video overflow-hidden rounded-2xl bg-ink">
+        {/* youtube-nocookie.com avoids setting tracking cookies until the visitor presses play. */}
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/live_stream?channel=${site.youtubeChannelId}`}
+          title={`${site.name} livestream`}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+          class="h-full w-full"></iframe>
+      </div>
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
+        <Button href={`${site.social.youtube}/live`} external>Open on YouTube</Button>
+        <Button href="/sermons" variant="secondary">Past sermons</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

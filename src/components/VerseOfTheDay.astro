@@ -1,0 +1,34 @@
+---
+// Verse of the Day in Amharic and English. The build renders today's verse; a small
+// script re-picks on page load so the verse still changes daily without a redeploy.
+import { verses } from '@/data/verses';
+import { dayNumberInAtlanta } from '@/lib/dates';
+
+const verse = verses[dayNumberInAtlanta() % verses.length];
+---
+
+<section class="bg-sand py-24 md:py-36" aria-labelledby="verse-heading">
+  <figure data-reveal class="mx-auto max-w-4xl px-6 text-center">
+    <p id="verse-heading" class="eyebrow">Verse of the Day · የዕለቱ ቃል</p>
+    <span class="mx-auto mt-6 block h-px w-16 bg-amber" aria-hidden="true"></span>
+    <blockquote lang="am" class="mt-10 font-serif text-2xl leading-relaxed font-semibold md:text-4xl md:leading-snug">
+      <p data-verse="am">{verse.am}</p>
+    </blockquote>
+    <p lang="am" class="mt-4 text-sm font-medium text-teal-ink" data-verse="amRef">{verse.amRef}</p>
+    <blockquote class="mx-auto mt-10 max-w-3xl font-serif text-xl leading-relaxed italic md:text-2xl">
+      <p data-verse="en">“{verse.en}”</p>
+    </blockquote>
+    <figcaption class="eyebrow mt-6" data-verse="enRef">{verse.enRef}</figcaption>
+  </figure>
+</section>
+
+<script>
+  import { verses } from '@/data/verses';
+  import { dayNumberInAtlanta } from '@/lib/dates';
+
+  const verse = verses[dayNumberInAtlanta() % verses.length];
+  const text = { am: verse.am, amRef: verse.amRef, en: `“${verse.en}”`, enRef: verse.enRef };
+  document.querySelectorAll<HTMLElement>('[data-verse]').forEach((el) => {
+    el.textContent = text[el.dataset.verse as keyof typeof text];
+  });
+</script>

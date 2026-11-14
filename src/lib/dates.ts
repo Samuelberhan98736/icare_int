@@ -35,6 +35,25 @@ export function todayInAtlanta(): Date {
   return new Date(`${ymd}T00:00:00Z`);
 }
 
+/** Whole days since 1970-01-01 for today's date in Atlanta. Used to rotate daily content. */
+export function dayNumberInAtlanta(now: Date = new Date()): number {
+  const ymd = new Intl.DateTimeFormat('en-CA', { timeZone: CHURCH_TIME_ZONE }).format(now);
+  return Math.floor(Date.parse(`${ymd}T00:00:00Z`) / 86_400_000);
+}
+
+/** Current weekday ("Sunday") and minutes since midnight, in Atlanta time. */
+export function clockInAtlanta(now: Date = new Date()): { weekday: string; minutes: number } {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: CHURCH_TIME_ZONE,
+    weekday: 'long',
+    hour: 'numeric',
+    minute: 'numeric',
+    hourCycle: 'h23',
+  }).formatToParts(now);
+  const get = (type: string) => parts.find((part) => part.type === type)?.value ?? '';
+  return { weekday: get('weekday'), minutes: Number(get('hour')) * 60 + Number(get('minute')) };
+}
+
 /** Parses "6:30 PM" / "10 AM" into 24-hour [hours, minutes]. Falls back to 10:00. */
 function parseTime(time: string): [number, number] {
   const match = /(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/i.exec(time);

@@ -1,0 +1,73 @@
+---
+// Floating "We're live" pill, shown only during site.liveWindow (Atlanta time).
+// Hidden by default so it never flashes; add ?live=1 to any URL to preview it.
+---
+
+<div
+  id="live-banner"
+  hidden
+  class="fixed inset-x-0 bottom-5 z-40 flex justify-center px-4"
+  role="status"
+>
+  <div class="flex items-center gap-1 rounded-full bg-navy-dark py-1.5 pr-1.5 pl-5 text-white shadow-xl shadow-ink/30 ring-1 ring-white/10">
+    <a href="/live" class="flex items-center gap-3 py-1.5 text-sm font-semibold hover:text-teal">
+      <span class="relative flex h-3 w-3" aria-hidden="true">
+        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal opacity-75"></span>
+        <span class="relative inline-flex h-3 w-3 rounded-full bg-teal"></span>
+      </span>
+      We're live · Watch now
+    </a>
+    <button
+      type="button"
+      data-live-dismiss
+      class="ml-2 flex h-9 w-9 items-center justify-center rounded-full text-white/70 hover:bg-white/10 hover:text-white"
+    >
+      <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 6l12 12M18 6 6 18" stroke-linecap="round" />
+      </svg>
+      <span class="sr-only">Hide the live banner</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  import { site } from '@/data/site';
+  import { clockInAtlanta } from '@/lib/dates';
+
+  const banner = document.getElementById('live-banner');
+  const DISMISS_KEY = 'live-banner-dismissed';
+  const toMinutes = (hhmm: string) => {
+    const [h, m] = hhmm.split(':').map(Number);
+    return h * 60 + m;
+  };
+
+  function isDismissed() {
+    try {
+      return sessionStorage.getItem(DISMISS_KEY) === '1';
+    } catch {
+      return false;
+    }
+  }
+
+  function update() {
+    if (!banner) return;
+    const { day, start, end } = site.liveWindow;
+    const { weekday, minutes } = clockInAtlanta();
+    const preview = new URLSearchParams(location.search).has('live');
+    const live = weekday === day && minutes >= toMinutes(start) && minutes < toMinutes(end);
+    const onLivePage = location.pathname.replace(/\/+$/, '') === '/live';
+    banner.hidden = !(preview || live) || isDismissed() || onLivePage;
+  }
+
+  banner?.querySelector('[data-live-dismiss]')?.addEventListener('click', () => {
+    try {
+      sessionStorage.setItem(DISMISS_KEY, '1');
+    } catch {
+      // Storage blocked: hide for this page view only.
+    }
+    if (banner) banner.hidden = true;
+  });
+
+  update();
+  setInterval(update, 60_000);
+</script>

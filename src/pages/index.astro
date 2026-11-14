@@ -8,6 +8,7 @@ import ServiceTimes from '@/components/ServiceTimes.astro';
 import SermonThumbnail from '@/components/SermonThumbnail.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import TibebDivider from '@/components/TibebDivider.astro';
+import VerseOfTheDay from '@/components/VerseOfTheDay.astro';
 import heroImage from '@/assets/images/hero-worship.jpg';
 import pastorImage from '@/assets/images/pastor-teddy.jpg';
 import { site, mainService } from '@/data/site';
@@ -119,17 +120,8 @@ const [latestSermon] = await getSermons();
     )
   }
 
-  <!-- 5. Scripture -->
-  <section class="bg-sand py-24 md:py-36" aria-label="Scripture">
-    <figure data-reveal class="mx-auto max-w-4xl px-6 text-center">
-      <span class="mx-auto block h-px w-16 bg-amber" aria-hidden="true"></span>
-      <!-- TODO: choose the church's preferred verse -->
-      <blockquote class="mt-10 font-serif text-3xl leading-snug font-semibold italic md:text-5xl md:leading-tight">
-        “God sets the lonely in families.”
-      </blockquote>
-      <figcaption class="eyebrow mt-8">Psalm 68:6</figcaption>
-    </figure>
-  </section>
+  <!-- 5. Verse of the Day -->
+  <VerseOfTheDay />
 
   <!-- 6. Closing CTA -->
   <CtaBand />

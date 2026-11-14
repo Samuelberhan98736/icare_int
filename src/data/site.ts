@@ -44,7 +44,10 @@ export const site = {
     youtube: 'https://www.youtube.com/@pastortheodrosbezabih3233',
     facebook: 'https://www.facebook.com/share/1D12y5gDMT/',
   },
-  // The channel's "Uploads" playlist: its channel ID (UCbf80s3…) with UC swapped for UU.
+  youtubeChannelId: 'UCbf80s3OZSO0D0GI8j1b5Sw',
+  // When the "We're live" banner shows (Atlanta time, 24-hour). Covers Sunday Worship plus a little padding.
+  liveWindow: { day: 'Sunday', start: '09:45', end: '12:45' },
+  // The channel's "Uploads" playlist: youtubeChannelId with UC swapped for UU.
   youtubeUploadsPlaylist: 'UUbf80s3OZSO0D0GI8j1b5Sw',
   navLinks: [
     { label: 'About', href: '/about' },
