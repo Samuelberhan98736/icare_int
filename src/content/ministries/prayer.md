@@ -9,6 +9,6 @@ order: 6
 
 TODO: Replace with real details about the prayer ministry.
 
-Prayer is the heartbeat of iCare. Our prayer team meets weekly, keeps a confidential prayer list,
+Prayer is the heartbeat of ICare. Our prayer team meets weekly, keeps a confidential prayer list,
 and is available after every Sunday service to pray with anyone who asks. If you have a prayer
 request, we would be honored to pray with you.

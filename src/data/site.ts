@@ -23,10 +23,10 @@ const address = {
 const fullAddress = `${address.street}, ${address.city}, ${address.region} ${address.postalCode}`;
 
 export const site = {
-  name: 'iCare International',
+  name: 'ICare International',
   tagline: 'A home for every heart in Atlanta.', // TODO: confirm tagline with the church
   description:
-    'iCare International is an Ethiopian American church in Atlanta, Georgia, led by Pastor Teddy. Join us on Sunday. You are welcome here.', // TODO: confirm description
+    'ICare International is an Ethiopian American church in Atlanta, Georgia, led by Pastor Teddy. Join us on Sunday. You are welcome here.', // TODO: confirm description
   url: 'https://icareinternational.org', // TODO: real domain (keep in sync with astro.config.mjs)
   pastor: 'Pastor Teddy',
   address,
@@ -43,12 +43,12 @@ export const site = {
   ] satisfies readonly ServiceTime[],
   social: {
     youtube: 'https://www.youtube.com/@icareinternational', // TODO: real YouTube channel
-    facebook: 'https://www.facebook.com/icareinternational', // TODO: real Facebook page
+    facebook: 'https://www.facebook.com/share/1D12y5gDMT/',
     instagram: 'https://www.instagram.com/icareinternational', // TODO: real Instagram handle
     tiktok: 'https://www.tiktok.com/@icareinternational', // TODO: real TikTok handle
   },
   givingUrl: 'https://example.com/give/icare-international', // TODO: link to the church's existing giving platform
-  mailingAddress: 'iCare International, PO Box 0000, Atlanta, GA 30300', // TODO: real mailing address for checks
+  mailingAddress: 'ICare International, PO Box 0000, Atlanta, GA 30300', // TODO: real mailing address for checks
   navLinks: [
     { label: 'About', href: '/about' },
     { label: 'Visit', href: '/visit' },

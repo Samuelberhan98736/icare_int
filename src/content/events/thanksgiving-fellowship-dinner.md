@@ -11,7 +11,7 @@ imageAlt: Church members sharing a Thanksgiving meal at long tables
 
 TODO: Replace this placeholder description with real event details.
 
-Join the whole iCare family for our annual Thanksgiving dinner. We'll share a meal that brings together
+Join the whole ICare family for our annual Thanksgiving dinner. We'll share a meal that brings together
 traditional Ethiopian dishes and American Thanksgiving favorites, hear a few stories of God's
 faithfulness this year, and pray together for the season ahead.
 

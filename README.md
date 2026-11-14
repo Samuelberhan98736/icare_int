@@ -1,6 +1,6 @@
-# iCare International — Church Website
+# ICare International — Church Website
 
-The website for **iCare International**, an Ethiopian American church in Atlanta, Georgia, led by Pastor Teddy.
+The website for **ICare International**, an Ethiopian American church in Atlanta, Georgia, led by Pastor Teddy.
 
 Built with [Astro](https://astro.build) (static output), TypeScript, and Tailwind CSS v4. There is no database and no server code. The site is plain HTML, CSS and a tiny bit of JavaScript, ready for Netlify.
 
