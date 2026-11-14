@@ -21,7 +21,7 @@ const [latest, ...rest] = await getSermons();
   <PageHero
     eyebrow="Sermons"
     title="Watch & Listen"
-    intro="Missed a Sunday or want to hear a message again? Catch up on recent sermons here."
+    intro="Missed a Sunday or want to hear a message again? Start with a featured sermon, or browse every video from our channel."
     image={heroImage}
     imageAlt="Pastor Teddy preaching on a Sunday morning"
   />
@@ -39,7 +39,7 @@ const [latest, ...rest] = await getSermons();
             />
           </a>
           <div data-reveal style="--reveal-delay: 120ms">
-            <p class="eyebrow mb-4">Latest Message{latest.data.series && ` · ${latest.data.series}`}</p>
+            <p class="eyebrow mb-4">Featured Message{latest.data.series && ` · ${latest.data.series}`}</p>
             <h2 class="text-4xl md:text-5xl">{latest.data.title}</h2>
             <p class="mt-5 text-muted">
               {latest.data.speaker} · <time datetime={isoDate(latest.data.date)}>{formatDate(latest.data.date)}</time>
@@ -62,7 +62,7 @@ const [latest, ...rest] = await getSermons();
 
   {
     rest.length > 0 && (
-      <Section bg="sand" id="archive" eyebrow="Archive" title="Recent Sermons">
+      <Section bg="sand" id="featured" eyebrow="Featured" title="More Featured Sermons">
         <ul class="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {rest.map((sermon, i) => (
             <li data-reveal style={`--reveal-delay: ${(i % 3) * 100}ms`}>
@@ -74,16 +74,29 @@ const [latest, ...rest] = await getSermons();
     )
   }
 
-  <Section width="narrow" class="text-center">
-    <div data-reveal>
+  <!-- Every upload on the channel, newest first. New videos appear here automatically, no redeploy needed. -->
+  <Section id="all-sermons">
+    <div data-reveal class="text-center">
       <p class="eyebrow">YouTube</p>
-      <h2 class="mt-4 text-4xl md:text-5xl">Watch every service online</h2>
+      <h2 class="mt-4 text-4xl md:text-5xl">Watch All Sermons</h2>
       <p class="mx-auto mt-5 max-w-prose leading-relaxed text-muted md:text-lg">
-        Subscribe to our channel to watch services live and get notified when new sermons are posted.
+        Every message from our channel, newest first. Use the playlist button in the player to browse them all.
       </p>
-      <div class="mt-8">
-        <Button href={site.social.youtube} external>Visit our YouTube channel</Button>
-      </div>
+    </div>
+    <div data-reveal class="mx-auto mt-12 aspect-video max-w-5xl overflow-hidden rounded-2xl bg-ink">
+      {/* youtube-nocookie.com avoids setting tracking cookies until the visitor presses play. */}
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/videoseries?list=${site.youtubeUploadsPlaylist}&rel=0`}
+        title={`All sermons from ${site.name} on YouTube`}
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        class="h-full w-full"
+      />
+    </div>
+    <div class="mt-10 text-center">
+      <Button href={site.social.youtube} external>Subscribe on YouTube</Button>
     </div>
   </Section>
 </BaseLayout>

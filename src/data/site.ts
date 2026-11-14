@@ -42,11 +42,11 @@ export const site = {
     { name: 'Prayer Night', day: 'Friday', time: '7:00 PM' },
   ] satisfies readonly ServiceTime[],
   social: {
-    youtube: 'https://www.youtube.com/@icareinternational', // TODO: real YouTube channel
+    youtube: 'https://www.youtube.com/@pastortheodrosbezabih3233',
     facebook: 'https://www.facebook.com/share/1D12y5gDMT/',
-    instagram: 'https://www.instagram.com/icareinternational', // TODO: real Instagram handle
-    tiktok: 'https://www.tiktok.com/@icareinternational', // TODO: real TikTok handle
   },
+  // The channel's "Uploads" playlist: its channel ID (UCbf80s3…) with UC swapped for UU.
+  youtubeUploadsPlaylist: 'UUbf80s3OZSO0D0GI8j1b5Sw',
   navLinks: [
     { label: 'About', href: '/about' },
     { label: 'Visit', href: '/visit' },
