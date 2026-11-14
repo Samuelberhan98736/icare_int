@@ -9,10 +9,10 @@ interface Props {
 
 const { transparent = false } = Astro.props;
 
-// Strip trailing slashes so "/events/" and "/events/some-event" both match "/events".
+// Strip trailing slashes so "/sermons/" and "/sermons/some-sermon" both match "/sermons".
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const isActive = (href: string) => path === href || path.startsWith(`${href}/`);
-const links = [...site.navLinks, site.giveLink];
+const links = site.navLinks;
 ---
 
 <header

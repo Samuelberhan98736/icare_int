@@ -5,20 +5,16 @@ import Button from '@/components/Button.astro';
 import Section from '@/components/Section.astro';
 import SplitFeature from '@/components/SplitFeature.astro';
 import ServiceTimes from '@/components/ServiceTimes.astro';
-import MinistryCard from '@/components/MinistryCard.astro';
-import EventCard from '@/components/EventCard.astro';
 import SermonThumbnail from '@/components/SermonThumbnail.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import TibebDivider from '@/components/TibebDivider.astro';
 import heroImage from '@/assets/images/hero-worship.jpg';
 import pastorImage from '@/assets/images/pastor-teddy.jpg';
 import { site, mainService } from '@/data/site';
-import { getMinistries, getSermons, getUpcomingEvents } from '@/lib/content';
+import { getSermons } from '@/lib/content';
 import { formatDate, isoDate } from '@/lib/dates';
 
-const ministries = (await getMinistries()).slice(0, 6);
 const [latestSermon] = await getSermons();
-const events = await getUpcomingEvents(3);
 ---
 
 <BaseLayout title={site.name} description={site.description} transparentHeader>
@@ -86,28 +82,7 @@ const events = await getUpcomingEvents(3);
     </div>
   </Section>
 
-  <!-- 4. Ministries -->
-  <Section
-    id="ministries"
-    eyebrow="Ministries"
-    title="Find Your Place"
-    intro="There's a place for everyone at ICare, from our littlest ones to our elders. Find a community to grow with."
-  >
-    <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        ministries.map((ministry, i) => (
-          <li data-reveal style={`--reveal-delay: ${(i % 3) * 100}ms`}>
-            <MinistryCard ministry={ministry} />
-          </li>
-        ))
-      }
-    </ul>
-    <div class="mt-12">
-      <Button href="/ministries" variant="secondary">Explore all ministries</Button>
-    </div>
-  </Section>
-
-  <!-- 5. Latest sermon -->
+  <!-- 4. Latest sermon -->
   {
     latestSermon && (
       <Section bg="navy" id="latest-sermon">
@@ -144,27 +119,7 @@ const events = await getUpcomingEvents(3);
     )
   }
 
-  <!-- 6. Upcoming events -->
-  <Section id="events" eyebrow="What's Happening" title="Upcoming Events">
-    {
-      events.length > 0 ? (
-        <ul class="grid gap-6 md:grid-cols-3">
-          {events.map((event, i) => (
-            <li data-reveal style={`--reveal-delay: ${i * 100}ms`}>
-              <EventCard event={event} />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="text-muted">New events are coming soon. Check back shortly.</p>
-      )
-    }
-    <div class="mt-12">
-      <Button href="/events" variant="ghost">View all events</Button>
-    </div>
-  </Section>
-
-  <!-- 7. Scripture -->
+  <!-- 5. Scripture -->
   <section class="bg-sand py-24 md:py-36" aria-label="Scripture">
     <figure data-reveal class="mx-auto max-w-4xl px-6 text-center">
       <span class="mx-auto block h-px w-16 bg-amber" aria-hidden="true"></span>
@@ -176,6 +131,6 @@ const events = await getUpcomingEvents(3);
     </figure>
   </section>
 
-  <!-- 8. Closing CTA -->
+  <!-- 6. Closing CTA -->
   <CtaBand />
 </BaseLayout>

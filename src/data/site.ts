@@ -13,10 +13,10 @@ export interface NavLink {
 }
 
 const address = {
-  street: '1234 Placeholder Road', // TODO: real street address
-  city: 'Atlanta', // TODO: confirm city
+  street: '5140 Memorial Dr.',
+  city: 'Stone Mountain',
   region: 'GA',
-  postalCode: '30300', // TODO: real ZIP code
+  postalCode: '30083',
   country: 'US',
 } as const;
 
@@ -33,8 +33,8 @@ export const site = {
   fullAddress,
   directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(fullAddress)}`,
   mapEmbedUrl: `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`,
-  phone: '(404) 555-0123', // TODO: real phone number
-  email: 'hello@icareinternational.org', // TODO: real email address
+  phone: '(314) 688-6483',
+  email: 'ayted94@gmail.com',
   serviceTimes: [
     // TODO: confirm service names, days, times, and languages
     { name: 'Sunday Worship', day: 'Sunday', time: '10:00 AM', language: 'Amharic & English' },
@@ -47,17 +47,12 @@ export const site = {
     instagram: 'https://www.instagram.com/icareinternational', // TODO: real Instagram handle
     tiktok: 'https://www.tiktok.com/@icareinternational', // TODO: real TikTok handle
   },
-  givingUrl: 'https://example.com/give/icare-international', // TODO: link to the church's existing giving platform
-  mailingAddress: 'ICare International, PO Box 0000, Atlanta, GA 30300', // TODO: real mailing address for checks
   navLinks: [
     { label: 'About', href: '/about' },
     { label: 'Visit', href: '/visit' },
-    { label: 'Ministries', href: '/ministries' },
-    { label: 'Events', href: '/events' },
     { label: 'Sermons', href: '/sermons' },
     { label: 'Contact', href: '/contact' },
   ] satisfies readonly NavLink[],
-  giveLink: { label: 'Give', href: '/give' } satisfies NavLink,
   visitLink: { label: 'Plan a Visit', href: '/visit' } satisfies NavLink,
 } as const;
 

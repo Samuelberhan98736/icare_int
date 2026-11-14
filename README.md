@@ -44,7 +44,6 @@ Every placeholder value is marked `TODO`. Search the project for `TODO` to find 
    time: 10:00 AM
    location: Main Sanctuary  # optional; defaults to "Main Sanctuary"
    summary: One or two sentences shown on event cards.
-   image: ../../assets/images/event-easter.jpg   # optional
    imageAlt: Describe the photo for screen readers  # optional
    ---
 
@@ -102,21 +101,9 @@ All photos are neutral placeholders labelled "PLACEHOLDER PHOTO". To replace one
 | `src/assets/images/cta-community.jpg` | 2400×1200 | Congregation fellowship | Closing "We'd love to meet you" band |
 | `src/assets/images/page-about.jpg` | 2400×1200 | Congregation in the sanctuary | About banner |
 | `src/assets/images/page-visit.jpg` | 2400×1200 | Building exterior / greeters | Visit banner |
-| `src/assets/images/page-ministries.jpg` | 2400×1200 | Ministries in action | Ministries banner |
-| `src/assets/images/page-events.jpg` | 2400×1200 | A church event | Events banner |
 | `src/assets/images/page-sermons.jpg` | 2400×1200 | Pastor preaching | Sermons banner |
-| `src/assets/images/page-give.jpg` | 2400×1200 | Outreach / serving | Give banner |
 | `src/assets/images/page-contact.jpg` | 2400×1200 | Welcome desk / greeters | Contact banner |
-| `src/assets/images/ministry-children.jpg` | 1200×900 | Children's ministry | Home, Ministries |
-| `src/assets/images/ministry-youth.jpg` | 1200×900 | Youth ministry | Home, Ministries |
-| `src/assets/images/ministry-women.jpg` | 1200×900 | Women's ministry | Home, Ministries |
-| `src/assets/images/ministry-men.jpg` | 1200×900 | Men's ministry | Home, Ministries |
-| `src/assets/images/ministry-worship.jpg` | 1200×900 | Worship team & choir | Home, Ministries |
-| `src/assets/images/ministry-prayer.jpg` | 1200×900 | Prayer ministry | Home, Ministries |
 | `src/assets/images/leader-1.jpg` … `leader-5.jpg` | 800×1000 (portrait) | Leadership portraits | About → Leadership (names/roles in `src/pages/about.astro`) |
-| `src/assets/images/event-thanksgiving.jpg` | 1600×1000 | Thanksgiving meal | Sample event |
-| `src/assets/images/event-prayer-night.jpg` | 1600×1000 | Night of prayer | Sample event |
-| `src/assets/images/event-christmas.jpg` | 1600×1000 | Christmas service | Sample event |
 | `src/assets/images/sermon-placeholder.jpg` | 1280×720 | Generic sermon thumbnail (shown when a sermon has no YouTube video) | Sermons |
 | `public/og-default.jpg` | 1200×630 | Image shown when the site is shared on social media | All pages |
 
